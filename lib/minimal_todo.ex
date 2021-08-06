@@ -4,11 +4,11 @@ defmodule MinimalTodo do
     # open it, read anf parse the data
     # ask user for comand
     # (read add, delete todos, load and save files)
-    filename = IO.gets("Enter csv filename to load: " |> String.trim())
-
+    # filename = IO.gets("Enter csv filename to load: " |> String.trim())
+    filename = "todo.csv"
     read(filename)
     |> parse
-    |> get_command
+    |> show_todos
   end
 
   def read(filename) do
@@ -111,7 +111,7 @@ defmodule MinimalTodo do
       "r" -> show_todos(todo_items)
       "a" -> add_todo(todo_items)
       "d" -> delete_todo(todo_items)
-      # "l" -> load_csv()
+      "s" -> save_csv(todo_items)
       "q" -> "Good bye"
       _ -> get_command(todo_items)
     end
@@ -147,8 +147,31 @@ defmodule MinimalTodo do
     notes = String.trim(notes)
     fields = get_fields(todo_items)
     item_data = Enum.zip(fields, [date_added, notes, priority, urgency]) |> Enum.into(%{})
-    Map.put(todo_items, new_todo, item_data)
-    get_command(todo_items)
+    new_map = Map.put(todo_items, new_todo, item_data)
+    get_command(new_map)
+  end
+
+  defp prepare_csv(todo_items) do
+    fields = get_fields todo_items
+    # prepend the name field to the fields list which is only ["priority", "urgency", "date added", "notes"]
+    headers = ["name" | fields]
+    items = Map.keys todo_items # name of each task
+    item_rows = Enum.map(items, fn item ->
+      [item | Map.values(todo_items[item])] # eg take out trash,4,1,Dec 11,stinking badly
+    end)
+    rows = [headers | item_rows]
+    row_strings = Enum.map(rows, fn x -> Enum.join(x, ",") end) # here, a list will be returned with each row as list element.
+    Enum.join(row_strings, "\n") # This step is needed to join each list element with \n to save to CSV
+  end
+
+  def save_csv(todo_items) do
+    file = "./lib/todo.csv"
+    filedata = prepare_csv(todo_items)
+    case File.write(file, filedata) do
+      :ok -> IO.puts "Saved to csv"
+      {:error, reason} -> IO.puts("Error: #{:file.format_error(reason)}")
+      _ -> nil
+    end
   end
 
   def get_todo_name(todo_items) do

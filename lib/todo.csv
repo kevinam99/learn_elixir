@@ -1,3 +1,4 @@
-item,priority,urgency,date added,notes
-take out trash,4,1,Dec 11,stinking badly
-see doctor,1,3,Dec 05,routine check
+name,date added,notes,priority,urgency
+new todo,3,4,1,2
+see doctor,Dec 05,routine check,1,3
+take out trash,Dec 11,stinking badly,4,1
