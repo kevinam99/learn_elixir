@@ -14,9 +14,7 @@ defmodule MiniMarkdown do
     |> bold
     |> italics
     |> paragraph
-    |> h1
-    |> h2
-    |> h3
+    |> headings
 
   end
 
@@ -24,15 +22,12 @@ defmodule MiniMarkdown do
     Regex.replace(~r/\*\*(.*)\*\*/, markdown, "<strong>\\1</strong>")
   end
 
-  defp italics(markdown) do
-    Regex.replace(~r/\*(.*)\*/, markdown, "<em>\\1</em>")
+  defp headings(markdown) do
+    markdown
+    |> h3
+    |> h2
+    |> h1
   end
-
-  defp paragraph(markdown) do
-    Regex.replace(~r/(\r\n|\n|\r|^)+([^\r\n]+)$/, markdown, "<p>\\2</p>")
-  end
-
-  # h1 and h2 headings
 
   defp h1(markdown) do
     Regex.replace(~r/^#(.*)([\r\n]+)/, markdown, "<h1>\\1<h1>")
@@ -44,6 +39,14 @@ defmodule MiniMarkdown do
 
   defp h3(markdown) do
     Regex.replace(~r/^###(.*)([\r\n]+)/, markdown, "<h3>\\1<h3>")
+  end
+
+  defp italics(markdown) do
+    Regex.replace(~r/\*(.*)\*/, markdown, "<em>\\1</em>")
+  end
+
+  defp paragraph(markdown) do
+    Regex.replace(~r/(\r\n|\n|\r|^)+([^\r\n]+)$/, markdown, "<p>\\2</p>")
   end
 
 end
