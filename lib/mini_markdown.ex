@@ -3,7 +3,7 @@ defmodule MiniMarkdown do
   A module to parse markdown and convert it to HTML
   """
   def start() do
-    markdown = """
+    _markdown = """
     # Diary note
       I *so* enjoyed eating the pot roast. **Thank you** for it
 
@@ -30,15 +30,15 @@ defmodule MiniMarkdown do
   end
 
   defp h1(markdown) do
-    Regex.replace(~r/^#(.*)([\r\n]+)/, markdown, "<h1>\\1<h1>")
+    Regex.replace(~r/^#(.*)([\r\n]+)/, markdown, "<h1>\\1 <h1>")
   end
 
   defp h2(markdown) do
-    Regex.replace(~r/^##(.*)([\r\n]+)/, markdown, "<h2>\\1<h2>")
+    Regex.replace(~r/^##(.*)([\r\n]+)/, markdown, "<h2>\\1 <h2>")
   end
 
   defp h3(markdown) do
-    Regex.replace(~r/^###(.*)([\r\n]+)/, markdown, "<h3>\\1<h3>")
+    Regex.replace(~r/^###(.*)([\r\n]+)/, markdown, "<h3>\\1 <h3>")
   end
 
   defp italics(markdown) do
