@@ -1,21 +1,21 @@
 defmodule MiniMarkdown do
-  @moduledoc"""
+  @moduledoc """
   A module to parse markdown and convert it to HTML
   """
   def start() do
-    _markdown = """
-    # Diary note
-      I *so* enjoyed eating the pot roast. **Thank you** for it
+    _markdown =
+      """
+      # Diary note
+        I *so* enjoyed eating the pot roast. **Thank you** for it
 
-      What did you think of it?
-      asdf
-    """
-    |> String.trim
-    |> bold
-    |> italics
-    |> paragraph
-    |> headings
-
+        What did you think of it?
+        asdf
+      """
+      |> String.trim()
+      |> bold
+      |> italics
+      |> paragraph
+      |> headings
   end
 
   defp bold(markdown) do
@@ -48,5 +48,4 @@ defmodule MiniMarkdown do
   defp paragraph(markdown) do
     Regex.replace(~r/(\r\n|\n|\r|^)+([^\r\n]+)$/, markdown, "<p>\\2</p>")
   end
-
 end

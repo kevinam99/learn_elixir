@@ -10,24 +10,32 @@ defmodule MoveFiles do
       {:ok, files} -> files
       {:error, reason} -> :file.format_error(reason)
     end
-
   end
 
   defp filter_images(files) do
     matcher = ~r/\.(jpg|bmp|gif|png)$/
-      Enum.filter(files, fn filename ->
-        Regex.match?(matcher, filename)
 
+    Enum.filter(files, fn filename ->
+      Regex.match?(matcher, filename)
     end)
   end
 
   defp move_to_folder(files) do
-    IO.inspect files
+    IO.inspect(files)
     # possible_msgs = [:ok, {:error, :eexist}]
     case File.mkdir("./lib/files/images/") do
-      :ok -> Enum.each(files, fn file -> File.rename("lib/files/" <> file,  "lib/files/images/" <> file) end)
-      {:error, :eexist} -> Enum.each(files, fn file -> File.rename("lib/files/" <> file,  "lib/files/images/" <> file) end)
-      {:error, reason} -> :file.format_error(reason)
+      :ok ->
+        Enum.each(files, fn file ->
+          File.rename("lib/files/" <> file, "lib/files/images/" <> file)
+        end)
+
+      {:error, :eexist} ->
+        Enum.each(files, fn file ->
+          File.rename("lib/files/" <> file, "lib/files/images/" <> file)
+        end)
+
+      {:error, reason} ->
+        :file.format_error(reason)
     end
   end
 end

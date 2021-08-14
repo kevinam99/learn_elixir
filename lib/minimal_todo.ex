@@ -6,6 +6,7 @@ defmodule MinimalTodo do
     # (read add, delete todos, load and save files)
     # filename = IO.gets("Enter csv filename to load: " |> String.trim())
     filename = "todo.csv"
+
     read(filename)
     |> parse
     |> show_todos
@@ -152,23 +153,32 @@ defmodule MinimalTodo do
   end
 
   defp prepare_csv(todo_items) do
-    fields = get_fields todo_items
+    fields = get_fields(todo_items)
+
     # prepend the name field to the fields list which is only ["priority", "urgency", "date added", "notes"]
     headers = ["name" | fields]
-    items = Map.keys todo_items # name of each task
-    item_rows = Enum.map(items, fn item ->
-      [item | Map.values(todo_items[item])] # eg take out trash,4,1,Dec 11,stinking badly
-    end)
+    # name of each task
+    items = Map.keys(todo_items)
+
+    item_rows =
+      Enum.map(items, fn item ->
+        # eg take out trash,4,1,Dec 11,stinking badly
+        [item | Map.values(todo_items[item])]
+      end)
+
     rows = [headers | item_rows]
-    row_strings = Enum.map(rows, fn x -> Enum.join(x, ",") end) # here, a list will be returned with each row as list element.
-    Enum.join(row_strings, "\n") # This step is needed to join each list element with \n to save to CSV
+    # here, a list will be returned with each row as list element.
+    row_strings = Enum.map(rows, fn x -> Enum.join(x, ",") end)
+    # This step is needed to join each list element with \n to save to CSV
+    Enum.join(row_strings, "\n")
   end
 
   def save_csv(todo_items) do
     file = "./lib/todo.csv"
     filedata = prepare_csv(todo_items)
+
     case File.write(file, filedata) do
-      :ok -> IO.puts "Saved to csv"
+      :ok -> IO.puts("Saved to csv")
       {:error, reason} -> IO.puts("Error: #{:file.format_error(reason)}")
       _ -> nil
     end
