@@ -1,7 +1,8 @@
 defmodule Tictac do
+  alias Tictac.Square
   @players {:x, :o}
 
-  defp check_player(player) do
+  def check_player(player) do
     case player do
       :x -> {:ok, player}
       :o -> {:ok, player}
@@ -9,7 +10,7 @@ defmodule Tictac do
     end
   end
 
-  defp place_piece(board, place, player) do
+  def place_piece(board, place, player) do
     case board[place] do
       nil -> {:error, :invalid_location}
       :x -> {:error, :x_occupied}
@@ -25,7 +26,7 @@ defmodule Tictac do
       do: new_board
   end
 
-  defp new_board do
+  def new_board do
     for set <- squares(), into: %{}, do: {set, :empty}
     # %{
     #   %Square{col: 1, row: 1} => :empty,
@@ -40,7 +41,7 @@ defmodule Tictac do
     # }
 
   end
-  defp squares do
+  def squares do
     # MapSet ensures that each (row, col) value is unique, i.e, implement a set on a map
     for col <- 1..3, row <- 1..3, into: MapSet.new(), do: %Square{row: row, col: col}
   end
