@@ -1,6 +1,6 @@
-defmodule Cart do
+defmodule Friends do
   @moduledoc """
-  Documentation for `Cart`.
+  Documentation for `Friends`.
   """
 
   @doc """
@@ -8,7 +8,7 @@ defmodule Cart do
 
   ## Examples
 
-      iex> Cart.hello()
+      iex> Friends.hello()
       :world
 
   """
