@@ -28,10 +28,12 @@ defmodule Friends do
     Repo.all(query)
   end
 
-  def update_something(id, updated_friend) do
+  def update_friend(id, updated_friend) do
     friend = Repo.get!(Person, id) |> IO.inspect
-    friend = Ecto.Changeset.change friend, updated_friend |> IO.inspect
+    friend = Person.changeset(friend, updated_friend)
     Repo.update(friend)
+
+    # funciton call -> update_friend 5, %{name: "K Mathew"}
   end
 
   def remove_friend(id) do
