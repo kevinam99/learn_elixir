@@ -14,6 +14,6 @@ defmodule Friends.Schema.Person do
     |> cast(params, [:name, :age])
     |> validate_required([:name])
     |> validate_length(:name, min: 2)
-    |> validate_number(:age, min: 18)
+    |> validate_number(:age, greater_than_or_equal_to: 18)
   end
 end
