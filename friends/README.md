@@ -1,7 +1,7 @@
 # Friends
 
 **TODO: Add description**
-
+A lesson from [ElixirSchool](https://elixirschool.com/en/lessons/ecto/basics/)
 ## Installation
 
 If [available in Hex](https://hex.pm/docs/publish), the package can be installed
