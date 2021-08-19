@@ -7,6 +7,7 @@ defmodule Cart.Application do
 
   def start(_type, _args) do
     children = [
+    {Cart.Repo, []}
       # Starts a worker by calling: Cart.Worker.start_link(arg)
       # {Cart.Worker, arg}
     ]
