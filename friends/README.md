@@ -1,6 +1,6 @@
 # Friends
 
-**TODO: Add description**
+**TODO: Add description**  
 A lesson from [ElixirSchool](https://elixirschool.com/en/lessons/ecto/basics/)
 ## Installation
 
