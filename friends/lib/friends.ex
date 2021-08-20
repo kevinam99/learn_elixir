@@ -29,8 +29,8 @@ defmodule Friends do
   end
 
   def update_friend(id, updated_friend) do
-    friend = Repo.get!(Person, id) |> IO.inspect
-    friend = Person.changeset(friend, updated_friend)
+    friend_in_db = Repo.get!(Person, id)
+    friend = Person.changeset(friend_in_db, updated_friend)
     Repo.update(friend)
 
     # funciton call -> update_friend 5, %{name: "K Mathew"}
