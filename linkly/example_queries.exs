@@ -123,3 +123,6 @@ Repo.insert(%User{username: "sam", email: "sam@example.com", about: "I do not li
 
 sam_query = from User, where: [username: "sam"]
 Repo.update_all(sam_query, set: [email: "sam@gmail.com"])
+
+query = from b in Bookmark, where b.link_id == 1
+Repo.aggrefaye(query, :count, :id)
