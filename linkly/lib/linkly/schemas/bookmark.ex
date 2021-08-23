@@ -1,10 +1,10 @@
 defmodule Linkly.Schema.Bookmark do
   use Ecto.Schema
-
+  alias Linkly.Schema.{Link, User}
   schema "bookmarks" do
     field :title
-    field :link_id, :id
-    field :user_id, :id
+    belongs_to(:link, Link)
+    belongs_to(:user, User)
 
     timestamps()
   end
