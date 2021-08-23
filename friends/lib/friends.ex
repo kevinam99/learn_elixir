@@ -33,6 +33,8 @@ defmodule Friends do
       }
 
 
+
+
   """
   def hello do
     :world
@@ -66,4 +68,74 @@ defmodule Friends do
     friend = Repo.get! Person, id
     Repo.delete!(friend)
   end
+
+  @doc """
+     ## Examples
+      alias Friends.Repo
+      alias Friends.Schema.{Actor, Character, Distributor, Movie, MoviesActors}
+
+     iex> movie = %Friends.Schema.Movie{title: "Ready Player One", tagline: "Something about games"}
+     %Friends.Schema.Movie{
+       __meta__: #Ecto.Schema.Metadata<:built, "movies">,
+       actors: #Ecto.Association.NotLoaded<association :actors is not loaded>,
+       characters: #Ecto.Association.NotLoaded<association :characters is not loaded>,
+       distributor: #Ecto.Association.NotLoaded<association :distributor is not loaded>,
+       id: nil,
+       tagline: "Something about games",
+       title: "Ready Player One"
+     }
+
+   iex> movie = Friends.Repo.insert! movie
+   %Friends.Schema.Movie{
+     __meta__: #Ecto.Schema.Metadata<:loaded, "movies">,
+     actors: #Ecto.Association.NotLoaded<association :actors is not loaded>,
+     characters: #Ecto.Association.NotLoaded<association :characters is not loaded>,
+     distributor: #Ecto.Association.NotLoaded<association :distributor is not loaded>,
+     id: 1,
+     tagline: "Something about games",
+     title: "Ready Player One"
+   }
+      iex> character = Ecto.build_assoc(movie, :characters, %{name: "Wade Watts"})
+      %Friends.Schema.Character{
+        __meta__: #Ecto.Schema.Metadata<:built, "characters">,
+        id: nil,
+        movie_id: 1,
+        movies: #Ecto.Association.NotLoaded<association :movies is not loaded>,
+        movies_id: nil,
+        name: "Wade Watts"
+      }
+
+      iex> character = Repo.insert! character
+      %Friends.Schema.Character{
+      __meta__: #Ecto.Schema.Metadata<:loaded, "characters">,
+      id: 1,
+      movie_id: 1,
+      movies: #Ecto.Association.NotLoaded<association :movies is not loaded>,
+      movies_id: nil,
+      name: "Wade Watts"
+      }
+
+      iex> distributor = Ecto.build_assoc(movie, :distributor, %{name: "Netflix"})
+      %Friends.Schema.Distributor{
+      __meta__: #Ecto.Schema.Metadata<:built, "distributors">,
+      id: nil,
+      movie_id: 1,
+      movies: #Ecto.Association.NotLoaded<association :movies is not loaded>,
+      movies_id: nil,
+      name: "Netflix"
+      }
+
+      iex> distributor = Repo.insert! distributor
+      %Friends.Schema.Distributor{
+      __meta__: #Ecto.Schema.Metadata<:loaded, "distributors">,
+      id: 1,
+      movie_id: 1,
+      movies: #Ecto.Association.NotLoaded<association :movies is not loaded>,
+      movies_id: nil,
+      name: "Netflix"
+      }
+
+      actor = %Actor{name: "Tyler Sheridan"}
+      actor = Repo.insert!(actor)
+  """
 end
