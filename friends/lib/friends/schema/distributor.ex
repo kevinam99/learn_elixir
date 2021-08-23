@@ -3,7 +3,6 @@ defmodule Friends.Schema.Distributor do
 
   schema "distributors" do
     field :name, :string
-    field :movie_id, :integer
-    belongs_to(:movies, Friends.Schema.Movie)
+    belongs_to(:movie, Friends.Schema.Movie)
   end
 end

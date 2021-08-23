@@ -3,8 +3,8 @@ defmodule Friends.Schema.Character do
 
   schema "characters" do
     field :name, :string
-    field :movie_id, :integer
-    belongs_to(:movies, Friends.Schema.Movie)
+    # field :movie_id, :integer
+    belongs_to(:movie, Friends.Schema.Movie)
 
     # In addition to adding the foreign key movie_id to our schema, it also gives us the ability to
     # access associated movies schema through characters. It uses the foreign key
