@@ -1,4 +1,4 @@
-defmodule Linkly.Schemas.User do
+defmodule Linkly.Schema.User do
   use Ecto.Schema
 
   schema "users" do
