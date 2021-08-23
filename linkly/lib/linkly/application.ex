@@ -7,6 +7,7 @@ defmodule Linkly.Application do
 
   def start(_type, _args) do
     children = [
+      {Linkly.Repo, []}
       # Starts a worker by calling: Linkly.Worker.start_link(arg)
       # {Linkly.Worker, arg}
     ]
