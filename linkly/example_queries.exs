@@ -112,3 +112,14 @@ by_name = from u in "users", where: u.username == ^name
 
 # As well as for deletes
 # {1, _} = Repo.delete_all post
+
+third_user = %User{
+  username: "sam",
+  email: "sam@example.com",
+  about: "I like to laugh. Haha haha..."
+}
+
+Repo.insert(%User{username: "sam", email: "sam@example.com", about: "I do not like green eggs and ham. No I don't. I don't like them one bit!"})
+
+sam_query = from User, where: [username: "sam"]
+Repo.update_all(sam_query, set: [email: "sam@gmail.com"])
