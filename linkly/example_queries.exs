@@ -125,4 +125,33 @@ sam_query = from User, where: [username: "sam"]
 Repo.update_all(sam_query, set: [email: "sam@gmail.com"])
 
 query = from b in Bookmark, where b.link_id == 1
-Repo.aggrefaye(query, :count, :id)
+Repo.aggregate(query, :count, :id)
+
+
+# changesets
+# 1.  changing the url
+# get the link
+manning = Repo.get!(Link, 4)
+%Linkly.Link{
+  __meta__: #Ecto.Schema.Metadata<:loaded, "links">,
+  bookmarks: #Ecto.Association.NotLoaded<association :bookmarks is not loaded>,
+  id: 4,
+  inserted_at: ~N[2021-02-10 18:23:02],
+  taggings: #Ecto.Association.NotLoaded<association :taggings is not loaded>,
+  tags: #Ecto.Association.NotLoaded<association :tags is not loaded>,
+  updated_at: ~N[2021-02-10 18:23:02],
+  url: "https://manning.com",
+  users: #Ecto.Association.NotLoaded<association :users is not loaded>
+}
+
+# create changeset with change()
+cs = change(manning, %{url: "nostarch.com"})
+#Ecto.Changeset<
+  action: nil,
+  changes: %{url: "nostarch.com"},
+  errors: [],
+  data: #Linkly.Link<>,
+  valid?: true
+>
+
+Repo.update(cs)
