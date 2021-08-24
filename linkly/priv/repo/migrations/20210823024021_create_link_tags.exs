@@ -1,4 +1,4 @@
-defmodule Linkly.Repo.Migrations.AddLinkTags do
+defmodule Linkly.Repo.Migrations.CreateLinkTags do
   use Ecto.Migration
 
   def change do
